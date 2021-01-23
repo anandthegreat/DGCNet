@@ -120,6 +120,8 @@ class VOCSegmentation(data.Dataset):
 
         image = image.transpose((2, 0, 1))
         print(image.shape, label.shape)
+        print("# OF UNIQUE LABEL VALUES ARE: ")
+        print(np.unique(np.array(label)))
         return image, label
 
 
