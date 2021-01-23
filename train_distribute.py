@@ -162,10 +162,10 @@ def main():
             i_parts = i.split('.')
             if not i_parts[0] == 'fc':
                 new_params['.'.join(i_parts[0:])] = saved_state_dict[i]
-        Log.info("load pretrined models")
+        Log.info("load pretrained models")
         deeplab.load_state_dict(new_params, strict=False)
     else:
-        Log.info("train from stracth")
+        Log.info("train from scratch")
 
     args.world_size = 1
 
@@ -224,15 +224,10 @@ def main():
                                    transforms.RandomRotation(20),
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.4589, 0.4355, 0.4032],[0.2239, 0.2186, 0.2206])])
-#    data_set = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = input_size, scale = args.random_scale, mean=IMG_MEAN, vars = IMG_VARS, transforms = augs)
-#    trainloader = data.DataLoader(data_set, batch_size=args.batch_size_per_gpu, shuffle=True, num_workers=args.num_workers,
-#                                pin_memory = True)
+    data_set = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = input_size, scale = args.random_scale, mean=IMG_MEAN, vars = IMG_VARS, transforms = augs)
 
-
-
-
-    data_set = Cityscapes(args.data_dir, args.data_list, max_iters=max_iters, crop_size=input_size,
-                  scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
+    # data_set = Cityscapes(args.data_dir, args.data_list, max_iters=max_iters, crop_size=input_size,
+    #               scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
     trainloader = data.DataLoader(
         data_set,
