@@ -114,7 +114,7 @@ class VOCSegmentation(data.Dataset):
             tuple: (image, target) where target is the image segmentation.
         """
         image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
-        label = cv2.imread(self.masks[index], cv2.IMREAD_COLOR)
+        label = cv2.imread(self.masks[index])
         label = voc_label_indices(label, self.colormap2label)
 
 
