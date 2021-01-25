@@ -5,7 +5,7 @@ python train_distribute.py --data_set cityscapes \
 --data_dir "/home/anand17218/GALD-DGCNet/dataset" \
 --data_list "./data/cityscapes/train.txt" \
 --arch DualSeg_res50 \
-# --restore_from "/home/anand17218/GALD-DGCNet/pretrained/resnet50-deep.pth" \
+--restore_from "/home/anand17218/GALD-DGCNet/pretrained/resnet50-deep.pth" \
 --input_size 832 \
 --batch_size_per_gpu 2 \
 --rgb 1 \
