@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # train the net (suppose 8 gpus)
+# --restore_from "/home/anand17218/GALD-DGCNet/pretrained/resnet50-pascalvoc.pth" \
 python train_distribute.py \
 --data_dir "/home/anand17218/GALD-DGCNet/dataset/PASCALVOC2012/VOCdevkit/VOC2012" \
-# --restore_from "/home/anand17218/GALD-DGCNet/pretrained/resnet50-pascalvoc.pth" \
 --arch DualSeg_res50 \
 --input_size 832 \
 --batch_size_per_gpu 1 \
