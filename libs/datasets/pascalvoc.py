@@ -115,6 +115,7 @@ class VOCSegmentation(data.Dataset):
         """
         image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
         label = cv2.imread(self.masks[index])
+        print("SHAPE IS: ", label.shape)
         label = voc_label_indices(label, self.colormap2label)
 
 
