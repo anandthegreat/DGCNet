@@ -115,6 +115,8 @@ class VOCSegmentation(data.Dataset):
         """
         image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
         label = cv2.imread(self.masks[index], cv2.IMREAD_COLOR)
+        label = voc_label_indices(label, self.colormap2label)
+
 
 #        if self.transforms is not None:
 #            image, label = self.transforms(image, label)
@@ -125,7 +127,7 @@ class VOCSegmentation(data.Dataset):
         image = np.asarray(image, np.float32)
         image -= self.mean
         image /= self.vars
-        img_h, img_w = label[2].shape
+        img_h, img_w = label.shape
         pad_h = max(self.crop_h - img_h, 0)
         pad_w = max(self.crop_w - img_w, 0)
         if pad_h > 0 or pad_w > 0:
@@ -138,7 +140,7 @@ class VOCSegmentation(data.Dataset):
         else:
             img_pad, label_pad = image, label
 
-        img_h, img_w = label_pad[2].shape
+        img_h, img_w = label_pad.shape
         h_off = random.randint(0, img_h - self.crop_h)
         w_off = random.randint(0, img_w - self.crop_w)
 
@@ -150,7 +152,7 @@ class VOCSegmentation(data.Dataset):
         print("# OF UNIQUE LABEL VALUES ARE: ")
         print(np.unique(np.array(voc_label_indices(label, self.colormap2label))))
         print("DONE~~~~~~~~")
-        return image, voc_label_indices(label, self.colormap2label)
+        return image, label
         # return image, label
 
 
