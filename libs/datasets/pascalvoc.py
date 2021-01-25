@@ -14,6 +14,32 @@ DATASET_YEAR_DICT = {
     }
 }
 
+VOC_COLORMAP = [[0, 0, 0], [128, 0, 0], [0, 128, 0], [128, 128, 0],
+                [0, 0, 128], [128, 0, 128], [0, 128, 128], [128, 128, 128],
+                [64, 0, 0], [192, 0, 0], [64, 128, 0], [192, 128, 0],
+                [64, 0, 128], [192, 0, 128], [64, 128, 128], [192, 128, 128],
+                [0, 64, 0], [128, 64, 0], [0, 192, 0], [128, 192, 0],
+                [0, 64, 128]]
+
+VOC_CLASSES = ['background', 'aeroplane', 'bicycle', 'bird', 'boat',
+               'bottle', 'bus', 'car', 'cat', 'chair', 'cow',
+               'diningtable', 'dog', 'horse', 'motorbike', 'person',
+               'potted plant', 'sheep', 'sofa', 'train', 'tv/monitor']
+
+def build_colormap2label():
+    """Build an RGB color to label mapping for segmentation."""
+    colormap2label = np.zeros(256 ** 3)
+    for i, colormap in enumerate(VOC_COLORMAP):
+        colormap2label[(colormap[0]*256 + colormap[1])*256 + colormap[2]] = i
+    return colormap2label
+
+#@save
+def voc_label_indices(colormap, colormap2label):
+    """Map an RGB color to a label."""
+    colormap = colormap.astype(np.int32)
+    idx = ((colormap[:, :, 0] * 256 + colormap[:, :, 1]) * 256
+           + colormap[:, :, 2])
+    return colormap2label[idx]
 
 class VOCSegmentation(data.Dataset):
     """`Pascal VOC <http://host.robots.ox.ac.uk/pascal/VOC/>`_ Segmentation Dataset.
@@ -63,6 +89,7 @@ class VOCSegmentation(data.Dataset):
         image_dir = os.path.join(root, 'JPEGImages')
         mask_dir = os.path.join(root, 'SegmentationClass')
         self.transforms = transforms
+        self.colormap2label = build_colormap2label()
 
         if not os.path.isdir(root):
             raise RuntimeError('Dataset not found or corrupted')
@@ -123,7 +150,8 @@ class VOCSegmentation(data.Dataset):
         print("# OF UNIQUE LABEL VALUES ARE: ")
         print(np.unique(np.array(label)))
         print("DONE~~~~~~~~")
-        return image, label
+        return image, voc_label_indices(label, self.colormap2label)
+        # return image, label
 
 
     def __len__(self):
