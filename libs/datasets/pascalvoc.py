@@ -125,7 +125,7 @@ class VOCSegmentation(data.Dataset):
         image = np.asarray(image, np.float32)
         image -= self.mean
         image /= self.vars
-        img_h, img_w = label.shape[2]
+        img_h, img_w = label[2].shape
         pad_h = max(self.crop_h - img_h, 0)
         pad_w = max(self.crop_w - img_w, 0)
         if pad_h > 0 or pad_w > 0:
