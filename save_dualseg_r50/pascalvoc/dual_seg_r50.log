@@ -49,3 +49,12 @@
 2020-12-15 12:13:03,040 INFO    [train_distribute.py, 168] train from stracth
 2020-12-15 12:14:36,092 INFO    [train_distribute.py, 168] train from stracth
 2020-12-15 12:15:13,905 INFO    [train_distribute.py, 168] train from stracth
+2021-01-23 19:48:44,042 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 19:48:51,716 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 21:33:09,372 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 21:38:39,986 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 21:47:23,143 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 21:47:47,630 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 21:47:57,549 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 21:48:08,022 INFO    [train_distribute.py, 165] load pretrained models
+2021-01-23 21:49:33,139 INFO    [train_distribute.py, 165] load pretrained models
