@@ -106,8 +106,8 @@ class VOCSegmentation(data.Dataset):
 
         self.images = [os.path.join(image_dir, x + ".jpg") for x in file_names]
         self.masks = [os.path.join(mask_dir, x + ".png") for x in file_names]
-        print("first image file name: ", images[0])
-        print("first mask file name: ", masks[0])
+        print("first image file name: ", self.images[0])
+        print("first mask file name: ", self.masks[0])
         assert (len(self.images) == len(self.masks))
 
     def __getitem__(self, index):
