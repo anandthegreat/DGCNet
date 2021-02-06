@@ -215,7 +215,7 @@ def val():
         dataset = Cityscapes(args.data_dir, args.data_list, crop_size=(1024, 2048), mean=IMG_MEAN, vars=IMG_VARS,
             scale=False, mirror=False, RGB=args.rgb)
 
-    else if args.dataset == 'pascalvoc':
+    elif args.dataset == 'pascalvoc':
         dataset = VOCSegmentation(args.data_dir, image_set = 'test', crop_size = (1024, 2048), 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
 

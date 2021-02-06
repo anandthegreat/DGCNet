@@ -228,7 +228,7 @@ def main():
         data_set = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = input_size, 
             scale = args.random_scale, mean=IMG_MEAN, vars = IMG_VARS, transforms = augs)
 
-    else if args.dataset == 'cityscapes':
+    elif args.dataset == 'cityscapes':
         data_set = Cityscapes(args.data_dir, args.data_list, max_iters=max_iters, crop_size=input_size,
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
