@@ -106,6 +106,8 @@ class VOCSegmentation(data.Dataset):
 
         self.images = [os.path.join(image_dir, x + ".jpg") for x in file_names]
         self.masks = [os.path.join(mask_dir, x + ".png") for x in file_names]
+        print("first image file name: ", images[0])
+        print("first mask file name: ", masks[0])
         assert (len(self.images) == len(self.masks))
 
     def __getitem__(self, index):
@@ -116,8 +118,6 @@ class VOCSegmentation(data.Dataset):
         Returns:
             tuple: (image, target) where target is the image segmentation.
         """
-        print("images size: ", len(self.images))
-        print("masks size: ", len(self.masks))
         image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
         label = cv2.imread(self.masks[index])
         # print("LABEL'S SHAPE IS: ", label.shape)
