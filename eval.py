@@ -211,11 +211,11 @@ def val():
         IMG_MEAN = np.array((104.00698793, 116.66876762, 122.67891434), dtype=np.float32)
         IMG_VARS = np.array((1, 1, 1), dtype=np.float32)
     
-    if args.dataset == "cityscapes":
+    if args.dataset == 'cityscapes':
         dataset = Cityscapes(args.data_dir, args.data_list, crop_size=(1024, 2048), mean=IMG_MEAN, vars=IMG_VARS,
             scale=False, mirror=False, RGB=args.rgb)
 
-    else if args.dataset == "pascalvoc":
+    else if args.dataset == 'pascalvoc':
         dataset = VOCSegmentation(args.data_dir, image_set = 'test', crop_size = (1024, 2048), 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
 
