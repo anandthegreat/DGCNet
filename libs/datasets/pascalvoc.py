@@ -14,6 +14,7 @@ DATASET_YEAR_DICT = {
     }
 }
 
+
 VOC_COLORMAP = [[0, 0, 0], [128, 0, 0], [0, 128, 0], [128, 128, 0],
                 [0, 0, 128], [128, 0, 128], [0, 128, 128], [128, 128, 128],
                 [64, 0, 0], [192, 0, 0], [64, 128, 0], [192, 128, 0],
@@ -28,17 +29,19 @@ VOC_CLASSES = ['background', 'aeroplane', 'bicycle', 'bird', 'boat',
 
 def build_colormap2label():
     """Build an RGB color to label mapping for segmentation."""
-    colormap2label = np.zeros(256 ** 3)
+    colormap2label = np.zeros(256 ** 3)   #create an array of size 16777216 (=256^3)
     for i, colormap in enumerate(VOC_COLORMAP):
-        colormap2label[(colormap[0]*256 + colormap[1])*256 + colormap[2]] = i
+        colormap2label[(colormap[0]*256 + colormap[1])*256 + colormap[2]] = i    #hash(label value) = label
     return colormap2label
 
 #@save
 def voc_label_indices(colormap, colormap2label):
     """Map an RGB color to a label."""
     colormap = colormap.astype(np.int32)
+    print("LABEL'S SHAPE IN voc_label_indices IS: ", label.shape)
     idx = ((colormap[:, :, 0] * 256 + colormap[:, :, 1]) * 256
-           + colormap[:, :, 2])
+           + colormap[:, :, 2])     
+    #calculate label value and find it's label mapping from colormap2label
     return colormap2label[idx]
 
 class VOCSegmentation(data.Dataset):
@@ -115,7 +118,7 @@ class VOCSegmentation(data.Dataset):
         """
         image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
         label = cv2.imread(self.masks[index])
-        print("SHAPE IS: ", label.shape)
+        print("LABEL'S SHAPE IS: ", label.shape)
         label = voc_label_indices(label, self.colormap2label)
 
 
