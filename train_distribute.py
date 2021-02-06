@@ -224,11 +224,11 @@ def main():
                                    transforms.RandomRotation(20),
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.4589, 0.4355, 0.4032],[0.2239, 0.2186, 0.2206])])
-    if args.dataset == 'pascalvoc':
+    if args.data_set == 'pascalvoc':
         data_set = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = input_size, 
             scale = args.random_scale, mean=IMG_MEAN, vars = IMG_VARS, transforms = augs)
 
-    elif args.dataset == 'cityscapes':
+    elif args.data_set == 'cityscapes':
         data_set = Cityscapes(args.data_dir, args.data_list, max_iters=max_iters, crop_size=input_size,
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
