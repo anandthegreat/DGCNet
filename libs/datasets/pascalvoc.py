@@ -122,7 +122,7 @@ class VOCSegmentation(data.Dataset):
         label = cv2.imread(self.masks[index])
         # print("LABEL'S SHAPE IS: ", label.shape)
         label = voc_label_indices(label, self.colormap2label)
-        print("successfully loaded image and label")
+        # print("successfully loaded image and label")
 
 
 #        if self.transforms is not None:
