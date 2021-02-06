@@ -12,6 +12,7 @@ from math import ceil
 from PIL import Image as PILImage
 
 from libs.datasets.cityscapes import Cityscapes
+from libs.datasets.pascalvoc import VOCSegmentation
 
 DATA_DIRECTORY = 'cityscapes'
 DATA_LIST_PATH = './data/cityscapes/val.txt'
