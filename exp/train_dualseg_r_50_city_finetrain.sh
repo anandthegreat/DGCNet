@@ -13,4 +13,4 @@ python train_distribute.py --data_set cityscapes \
 --num_steps 50000 \
 --save_dir "./save_dualseg_r50/cityscapes" \
 --ohem 1 --ohem_thres 0.7 --ohem_keep 100000 \
---log_file "dual_seg_r50.log"
+--log_file "dual_seg_r50_cityscapes.log"

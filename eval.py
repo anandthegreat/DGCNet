@@ -213,6 +213,8 @@ def val():
 
     dataset = Cityscapes(args.data_dir, args.data_list, crop_size=(1024, 2048), mean=IMG_MEAN, vars=IMG_VARS,
                         scale=False, mirror=False, RGB=args.rgb)
+
+    
     testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
 
     confusion_matrix = np.zeros((args.num_classes, args.num_classes))

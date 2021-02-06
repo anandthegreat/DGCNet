@@ -38,7 +38,7 @@ def build_colormap2label():
 def voc_label_indices(colormap, colormap2label):
     """Map an RGB color to a label."""
     colormap = colormap.astype(np.int32)
-    print("LABEL'S SHAPE IN voc_label_indices IS: ", colormap.shape)
+    # print("LABEL'S SHAPE IN voc_label_indices IS: ", colormap.shape)
     idx = ((colormap[:, :, 0] * 256 + colormap[:, :, 1]) * 256
            + colormap[:, :, 2])     
     #calculate label value and find it's label mapping from colormap2label
@@ -118,7 +118,7 @@ class VOCSegmentation(data.Dataset):
         """
         image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
         label = cv2.imread(self.masks[index])
-        print("LABEL'S SHAPE IS: ", label.shape)
+        # print("LABEL'S SHAPE IS: ", label.shape)
         label = voc_label_indices(label, self.colormap2label)
 
 
