@@ -116,6 +116,8 @@ class VOCSegmentation(data.Dataset):
         Returns:
             tuple: (image, target) where target is the image segmentation.
         """
+        print("images size: ", len(self.images))
+        print("masks size: ", len(self.masks))
         image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
         label = cv2.imread(self.masks[index])
         # print("LABEL'S SHAPE IS: ", label.shape)
