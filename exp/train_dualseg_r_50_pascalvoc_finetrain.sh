@@ -9,7 +9,7 @@ python train_distribute.py \
 --batch_size_per_gpu 1 \
 --learning_rate 0.01 \
 --num_steps 50000 \
---num_classes 20 \
+--num_classes 21 \
 --save_dir "./save_dualseg_r50/pascalvoc" \
 --ohem 1 --ohem_thres 0.7 --ohem_keep 100000 \
 --log_file "dual_seg_r50.log"
