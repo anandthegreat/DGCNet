@@ -85,8 +85,8 @@ class VOCSegmentation(data.Dataset):
         self.vars = vars
         self.year = year
         self.filename = DATASET_YEAR_DICT[year]['filename']
-        valid_sets = ["train", "trainval", "val"]
-#        self.image_set = verify_str_arg(image_set, "image_set", valid_sets)
+        # valid_sets = ["train", "trainval", "val"]
+        self.image_set = image_set
         self.root = root
         base_dir = DATASET_YEAR_DICT[year]['base_dir']
         image_dir = os.path.join(root, 'JPEGImages')
