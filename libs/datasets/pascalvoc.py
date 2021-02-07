@@ -125,9 +125,8 @@ class VOCSegmentation(data.Dataset):
         # print("successfully loaded image and label")
 
 
-        if self.transforms is not None:
-            dicttemp = {'image': image, 'mask': label}
-            image, label = self.transforms(dicttemp)
+        # if self.transforms is not None:
+        #     image, label = self.transforms(image, label)
         if self.scale:
             f_scale = 0.7 + random.randint(0, 14) / 10.0
             image=cv2.resize(image,None,fx=f_scale,fy=f_scale,interpolation=cv2.INTER_LINEAR)
