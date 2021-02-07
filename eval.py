@@ -240,10 +240,10 @@ def val():
             print('%d processd' % (index))
         image, label = batch
         with torch.no_grad():
-            if args.whole:
-                output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
-            else:
-                output = predict_sliding(model, image.numpy(), input_size, args.num_classes, True)
+            # if args.whole:
+            output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
+            # else:
+            #     output = predict_sliding(model, image.numpy(), input_size, args.num_classes, True)
 
         seg_pred = np.asarray(np.argmax(output, axis=2), dtype=np.uint8)
         output_im = PILImage.fromarray(seg_pred)
