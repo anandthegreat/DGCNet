@@ -252,8 +252,7 @@ def main():
         loss = criterion(preds, labels)
         loss.backward()
         optimizer.step()
-        reduce_loss = all_reduce_tensor(loss,
-                                       world_size=args.gpu_num)
+        # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
         if args.local_rank == 0:
             Log.info('iter = {} of {} completed, lr={}, loss = {}'.format(i_iter,
                                                                      len(trainloader), lr, reduce_loss.data.cpu().numpy()))
