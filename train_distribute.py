@@ -254,8 +254,8 @@ def main():
         optimizer.step()
         # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
         if args.local_rank == 0:
-            Log.info('iter = {} of {} completed, lr={}, loss = {}'.format(i_iter,
-                                                                     len(trainloader), lr, reduce_loss.data.cpu().numpy()))
+            # Log.info('iter = {} of {} completed, lr={}, loss = {}'.format(i_iter,
+            #                                                          len(trainloader), lr, reduce_loss.data.cpu().numpy()))
             if i_iter % args.save_pred_every == 0 and i_iter > args.save_start:
                 print('save models ...')
                 torch.save(deeplab.state_dict(), osp.join(args.save_dir, str(args.arch) + str(i_iter) + '.pth'))
