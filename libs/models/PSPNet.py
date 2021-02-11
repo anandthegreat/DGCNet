@@ -214,6 +214,7 @@ def PSPNet_res101(num_classes=21):
 
 def PSPNet_res50(num_classes=21):
     model = ResNet(Bottleneck,[3, 4, 6, 3], num_classes)
+    model.eval()
     return model
 
 
