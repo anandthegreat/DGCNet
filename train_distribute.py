@@ -154,7 +154,7 @@ def main():
     # set models
     import libs.models as models
     deeplab = models.__dict__[args.arch](num_classes=args.num_classes)
-    print(deeplab)
+    # print(deeplab)
     if args.restore_from is not None:
         print("LOADING FROM PRETRAINED MODEL")
         saved_state_dict = torch.load(args.restore_from, map_location=torch.device('cpu'))
