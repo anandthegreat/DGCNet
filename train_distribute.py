@@ -154,18 +154,18 @@ def main():
     # set models
     import libs.models as models
     deeplab = models.__dict__[args.arch](num_classes=args.num_classes)
-    # if args.restore_from is not None:
-    #     print("LOADING FROM PRETRAINED MODEL")
-    #     saved_state_dict = torch.load(args.restore_from, map_location=torch.device('cpu'))
-    #     new_params = deeplab.state_dict().copy()
-    #     for i in saved_state_dict:
-    #         i_parts = i.split('.')
-    #         if not i_parts[0] == 'fc':
-    #             new_params['.'.join(i_parts[0:])] = saved_state_dict[i]
-    #     Log.info("load pretrained models")
-    #     deeplab.load_state_dict(new_params, strict=False)
-    # else:
-    #     Log.info("train from scratch")
+    if args.restore_from is not None:
+        print("LOADING FROM PRETRAINED MODEL")
+        saved_state_dict = torch.load(args.restore_from, map_location=torch.device('cpu'))
+        new_params = deeplab.state_dict().copy()
+        for i in saved_state_dict:
+            i_parts = i.split('.')
+            if not i_parts[0] == 'fc':
+                new_params['.'.join(i_parts[0:])] = saved_state_dict[i]
+        Log.info("load pretrained models")
+        deeplab.load_state_dict(new_params, strict=False)
+    else:
+        Log.info("train from scratch")
 
     args.world_size = 1
 
