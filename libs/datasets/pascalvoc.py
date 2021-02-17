@@ -66,6 +66,7 @@ class VOCSegmentation(data.Dataset):
             self,
             root,
             year= "2012",
+            max_iters=None,
             crop_size=(321,321),
             mean=(128,128,128),
             vars=(1,1,1),
@@ -106,6 +107,9 @@ class VOCSegmentation(data.Dataset):
 
         self.images = [os.path.join(image_dir, x + ".jpg") for x in file_names]
         self.masks = [os.path.join(mask_dir, x + ".png") for x in file_names]
+        if not max_iters==None:
+            self.images = self.images * int(np.ceil(float(max_iters) / len(self.images)))
+            self.masks = self.masks * int(np.ceil(float(max_iters) / len(self.masks)))
         # print("first image file name: ", self.images[0])
         # print("first mask file name: ", self.masks[0])
         assert (len(self.images) == len(self.masks))

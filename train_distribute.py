@@ -226,7 +226,7 @@ def main():
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.4589, 0.4355, 0.4032],[0.2239, 0.2186, 0.2206])])
     if args.data_set == 'pascalvoc':
-        data_set = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = input_size, 
+        data_set = VOCSegmentation(args.data_dir, image_set = 'train', max_iters=max_iters,crop_size = input_size, 
             scale = args.random_scale, mean=IMG_MEAN, vars = IMG_VARS, transforms = augs)
 
     elif args.data_set == 'cityscapes':
