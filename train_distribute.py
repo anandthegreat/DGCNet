@@ -243,7 +243,7 @@ def main():
 
     # start training:
     for i_iter, batch in enumerate(trainloader):
-        print('hello.........')
+        print(i_iter)
         images, labels = batch
         images = images.cuda()
         labels = labels.long().cuda()

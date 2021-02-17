@@ -155,7 +155,7 @@ class VOCSegmentation(data.Dataset):
         label = np.asarray(label_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
 
         image = image.transpose((2, 0, 1))
-        print(image.shape, label.shape)
+        # print(image.shape, label.shape)
         return image, label
 
 
