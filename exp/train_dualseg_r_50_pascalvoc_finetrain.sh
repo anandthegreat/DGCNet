@@ -13,3 +13,4 @@ python train_distribute.py --data_set pascalvoc \
 --save_dir "./save_dualseg_r50/pascalvoc" \
 --ohem 1 --ohem_thres 0.7 --ohem_keep 100000 \
 --log_file "dual_seg_r50_pascalvoc.log"
+
