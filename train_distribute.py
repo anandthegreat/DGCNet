@@ -16,6 +16,7 @@ import torch
 from torch.utils import data
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
+from torch.utils.tensorboard import SummaryWriter
 
 from libs.utils.logger import Logger as Log
 from libs.utils.tools import adjust_learning_rate, all_reduce_tensor
@@ -136,6 +137,11 @@ def main():
     if args.local_rank == 0:
         if not os.path.exists(args.save_dir):
             os.makedirs(args.save_dir)
+
+    # for tensorboard logs
+    tb_path = osp.join(args.save_dir, "runs")
+    writer = SummaryWriter(tb_path)
+    
     # launch the logger
     Log.init(
         log_level=args.log_level,
@@ -241,16 +247,16 @@ def main():
     print("trainloader", len(trainloader))
 
 
+    writer.add_graph(model)
+    writer.close()
 
     torch.cuda.empty_cache()
 
     # start training:
     for i_iter, batch in enumerate(trainloader):
         if i_iter % 1000 == 0:
-            print("iteration " + i_iter)
+            print("iteration " + str(i_iter))
         images, labels = batch
-        print(len(images))
-        sys.exit()
         images = images.cuda()
         labels = labels.long().cuda()
         optimizer.zero_grad()
