@@ -131,7 +131,7 @@ start = timeit.default_timer()
 args = get_arguments()
 
 def get_num_correct(preds, labels):
-    print(preds)
+    print(len(preds))
     return preds.argmax(dim=1).eq(labels).sum().item()
 
 def main():
@@ -219,8 +219,8 @@ def main():
 
     cudnn.benchmark = True
 
-    if args.world_size == 1:
-        print(model)
+    # if args.world_size == 1:
+    #     print(model)
 
     # this is a little different from mul-gpu traning setting in distributed training
     # because each trainloader is a process that sample from the dataset class.
