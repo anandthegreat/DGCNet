@@ -249,6 +249,7 @@ def main():
 
     writer.add_graph(model)
     writer.close()
+    sys.exit()
 
     torch.cuda.empty_cache()
 
