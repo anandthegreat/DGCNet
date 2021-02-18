@@ -247,7 +247,7 @@ def main():
     # start training:
     for i_iter, batch in enumerate(trainloader):
         if i_iter % 1000 == 0:
-            print("iteration ", i_iter, " completed")
+            print("iteration " + i_iter)
         images, labels = batch
         print(len(images))
         sys.exit()
