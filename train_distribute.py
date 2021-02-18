@@ -271,12 +271,12 @@ def main():
 
             loss = criterion(preds, labels)
             total_loss += loss.item()
-            writer.add_scalar("Loss vs Iteration", loss.item(), iter_no)
+            writer.add_scalar("Loss_vs_Iteration", loss.item(), iter_no)
             iter_no += 1
             loss.backward()
             optimizer.step()
         
-        writer.add_scalar("Loss vs Epoch", total_loss/len(trainloader), epoch)
+        writer.add_scalar("Loss_vs_Epoch", total_loss/len(trainloader), epoch)
         # writer.add_scaler("Correct", total_correct, epoch)
         # writer.add_scaler("Accuracy",total_correct / len(dataset), epoch)            
             # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
