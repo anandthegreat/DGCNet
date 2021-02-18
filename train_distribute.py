@@ -131,7 +131,6 @@ start = timeit.default_timer()
 args = get_arguments()
 
 def get_num_correct(preds, labels):
-    print(preds[0])
     return preds.argmax(dim=1).eq(labels).sum().item()
 
 def main():
@@ -271,13 +270,13 @@ def main():
 
             loss = criterion(preds, labels)
             total_loss += loss.item()
-            total_correct += get_num_correct(preds, labels)
+            # total_correct += get_num_correct(preds, labels)
             loss.backward()
             optimizer.step()
         
         writer.add_scaler("Loss", total_loss, epoch)
-        writer.add_scaler("Correct", total_correct, epoch)
-        writer.add_scaler("Accuracy",total_correct / len(dataset), epoch)            
+        # writer.add_scaler("Correct", total_correct, epoch)
+        # writer.add_scaler("Accuracy",total_correct / len(dataset), epoch)            
             # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
             # if args.local_rank == 0:
             #     # Log.info('iter = {} of {} completed, lr={}, loss = {}'.format(i_iter,
