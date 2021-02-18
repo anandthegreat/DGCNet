@@ -259,7 +259,7 @@ def main():
 
         for i_iter, batch in enumerate(trainloader):
             if i_iter % 100 == 0:
-                print("iteration " + str(i_iter+1))
+                print("step " + str(i_iter+1))
             images, labels = batch
             images = images.cuda()
             labels = labels.long().cuda()
@@ -274,7 +274,7 @@ def main():
             loss.backward()
             optimizer.step()
         
-        writer.add_scalar("Loss", total_loss, epoch)
+        writer.add_scalar("Loss vs Epoch", total_loss/len(trainloader), epoch)
         # writer.add_scaler("Correct", total_correct, epoch)
         # writer.add_scaler("Accuracy",total_correct / len(dataset), epoch)            
             # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
