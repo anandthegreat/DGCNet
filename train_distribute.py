@@ -140,6 +140,8 @@ def main():
 
     # for tensorboard logs
     tb_path = osp.join(args.save_dir, "runs")
+    if not os.path.exists(tb_path):
+            os.makedirs(tb_path)
     writer = SummaryWriter(tb_path)
     
     # launch the logger
@@ -247,7 +249,7 @@ def main():
     print("trainloader", len(trainloader))
 
 
-    writer.add_graph(model)
+    writer.add_graph(model, trainloader[0][0].reshape(-1,28*28))
     writer.close()
     sys.exit()
 
