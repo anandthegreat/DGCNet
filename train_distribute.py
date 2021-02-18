@@ -131,7 +131,8 @@ start = timeit.default_timer()
 args = get_arguments()
 
 def get_num_correct(preds, labels):
-    return preds.argmax(dim=0).eq(labels).sum().item()
+    print(preds[0])
+    return preds.argmax(dim=1).eq(labels).sum().item()
 
 def main():
 
