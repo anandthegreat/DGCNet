@@ -239,13 +239,15 @@ def main():
         batch_size=args.batch_size_per_gpu, shuffle=True, num_workers=args.num_workers, pin_memory=True)
 
     print("trainloader", len(trainloader))
-    sys.exit()
+
 
 
     torch.cuda.empty_cache()
 
     # start training:
     for i_iter, batch in enumerate(trainloader):
+        print(len(batch))
+        sys.exit()
         print(i_iter)
         images, labels = batch
         images = images.cuda()
