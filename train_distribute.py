@@ -140,8 +140,6 @@ def main():
 
     # for tensorboard logs
     tb_path = osp.join(args.save_dir, "runs")
-    if not os.path.exists(tb_path):
-            os.makedirs(tb_path)
     writer = SummaryWriter(tb_path)
     
     # launch the logger
@@ -257,7 +255,7 @@ def main():
             print("iteration " + str(i_iter))
         images, labels = batch
 
-        writer.add_graph(model, images.reshape(-1,28*28))
+        writer.add_graph(model, images)
         writer.close()
         sys.exit()
 
