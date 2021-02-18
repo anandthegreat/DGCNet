@@ -9,6 +9,7 @@ import os
 import os.path as osp
 import timeit
 import numpy as np
+import sys
 
 
 import torch
@@ -238,6 +239,8 @@ def main():
         batch_size=args.batch_size_per_gpu, shuffle=True, num_workers=args.num_workers, pin_memory=True)
 
     print("trainloader", len(trainloader))
+    sys.exit()
+
 
     torch.cuda.empty_cache()
 
