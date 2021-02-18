@@ -274,7 +274,7 @@ def main():
             loss.backward()
             optimizer.step()
         
-        writer.add_scaler("Loss", total_loss, epoch)
+        writer.add_scalar("Loss", total_loss, epoch)
         # writer.add_scaler("Correct", total_correct, epoch)
         # writer.add_scaler("Accuracy",total_correct / len(dataset), epoch)            
             # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
