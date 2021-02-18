@@ -254,13 +254,13 @@ def main():
         if i_iter % 1000 == 0:
             print("iteration " + str(i_iter))
         images, labels = batch
-
+        images = images.cuda()
+        labels = labels.long().cuda()
+        
         writer.add_graph(model, images)
         writer.close()
         sys.exit()
-
-        images = images.cuda()
-        labels = labels.long().cuda()
+        
         optimizer.zero_grad()
         lr = adjust_learning_rate(optimizer, args, i_iter, len(trainloader))
         preds = model(images)
