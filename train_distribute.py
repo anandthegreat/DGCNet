@@ -249,10 +249,6 @@ def main():
     print("trainloader", len(trainloader))
 
 
-    writer.add_graph(model, trainloader[0][0].reshape(-1,28*28))
-    writer.close()
-    sys.exit()
-
     torch.cuda.empty_cache()
 
     # start training:
@@ -260,6 +256,11 @@ def main():
         if i_iter % 1000 == 0:
             print("iteration " + str(i_iter))
         images, labels = batch
+
+        writer.add_graph(model, images.reshape(-1,28*28))
+        writer.close()
+        sys.exit()
+
         images = images.cuda()
         labels = labels.long().cuda()
         optimizer.zero_grad()
