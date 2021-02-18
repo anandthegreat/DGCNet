@@ -6,7 +6,7 @@ python train_distribute.py --data_set pascalvoc \
 --data_dir "/home/anand17218/GALD-DGCNet/dataset/PASCALVOC2012/VOCdevkit/VOC2012" \
 --arch DualSeg_res50 \
 --input_size 321 \
---batch_size_per_gpu 12 \
+--batch_size_per_gpu 32 \
 --learning_rate 0.01 \
 --num_steps 250000 \
 --num_classes 21 \
