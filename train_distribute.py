@@ -252,6 +252,7 @@ def main():
     torch.cuda.empty_cache()
 
     # start training:
+    iter_no = 0
     for epoch in range(args.num_steps):
         print("epoch " + str(epoch+1))
         total_loss = 0
@@ -259,7 +260,7 @@ def main():
 
         for i_iter, batch in enumerate(trainloader):
             if i_iter % 100 == 0:
-                print("step " + str(i_iter+1))
+                print("iteration " + str(i_iter+1))
             images, labels = batch
             images = images.cuda()
             labels = labels.long().cuda()
@@ -270,7 +271,8 @@ def main():
 
             loss = criterion(preds, labels)
             total_loss += loss.item()
-            # total_correct += get_num_correct(preds, labels)
+            writer.add_scalar("Loss vs Iteration", loss.item(), iter_no)
+            iter_no += 1
             loss.backward()
             optimizer.step()
         
