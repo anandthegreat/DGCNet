@@ -246,10 +246,11 @@ def main():
 
     # start training:
     for i_iter, batch in enumerate(trainloader):
-        print(len(batch))
-        sys.exit()
-        print(i_iter)
+        if(i_iter % 1000)
+            print("iteration ", i_iter, " completed")
         images, labels = batch
+        print(len(images))
+        sys.exit()
         images = images.cuda()
         labels = labels.long().cuda()
         optimizer.zero_grad()
