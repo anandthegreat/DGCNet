@@ -130,6 +130,8 @@ start = timeit.default_timer()
 
 args = get_arguments()
 
+def get_num_correct(preds, labels):
+    return preds.argmax(dim=1).eq(labels).sum().item()
 
 def main():
 
@@ -233,7 +235,7 @@ def main():
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.4589, 0.4355, 0.4032],[0.2239, 0.2186, 0.2206])])
     if args.data_set == 'pascalvoc':
-        data_set = VOCSegmentation(args.data_dir, image_set = 'train', max_iters=max_iters,crop_size = input_size, 
+        data_set = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = input_size, 
             scale = args.random_scale, mean=IMG_MEAN, vars = IMG_VARS, transforms = augs)
 
     elif args.data_set == 'cityscapes':
@@ -250,32 +252,47 @@ def main():
     torch.cuda.empty_cache()
 
     # start training:
-    for i_iter, batch in enumerate(trainloader):
-        if i_iter % 1000 == 0:
-            print("iteration " + str(i_iter))
-        images, labels = batch
-        images = images.cuda()
-        labels = labels.long().cuda()
-        
-        writer.add_graph(model, images)
-        writer.close()
-        sys.exit()
-        
-        optimizer.zero_grad()
-        lr = adjust_learning_rate(optimizer, args, i_iter, len(trainloader))
-        preds = model(images)
+    for epoch in range(args.num_steps):
+        print("epoch " + str(epoch+1))
+        total_loss = 0
+        total_correct = 0
 
-        loss = criterion(preds, labels)
-        loss.backward()
-        optimizer.step()
-        # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
+        for i_iter, batch in enumerate(trainloader):
+            if i_iter % 100 == 0:
+                print("iteration " + str(i_iter+1))
+            images, labels = batch
+            images = images.cuda()
+            labels = labels.long().cuda()
+
+            optimizer.zero_grad()
+            lr = adjust_learning_rate(optimizer, args, i_iter, len(trainloader))
+            preds = model(images)
+
+            loss = criterion(preds, labels)
+            total_loss += loss.item()
+            total_correct += get_num_correct(preds, labels)
+            loss.backward()
+            optimizer.step()
+        
+        writer.add_scaler("Loss", total_loss, epoch)
+        writer.add_scaler("Correct", total_correct, epoch)
+        writer.add_scaler("Accuracy",total_correct / len(dataset), epoch)            
+            # reduce_loss = all_reduce_tensor(loss,world_size=args.gpu_num)
+            # if args.local_rank == 0:
+            #     # Log.info('iter = {} of {} completed, lr={}, loss = {}'.format(i_iter,
+            #     #                                                          len(trainloader), lr, reduce_loss.data.cpu().numpy()))
+            #     if i_iter % args.save_pred_every == 0 and i_iter > args.save_start:
+            #         print('save models ...')
+            
+            #         torch.save(deeplab.state_dict(), osp.join(args.save_dir, str(args.arch) + str(i_iter) + '.pth'))
+        
         if args.local_rank == 0:
-            # Log.info('iter = {} of {} completed, lr={}, loss = {}'.format(i_iter,
-            #                                                          len(trainloader), lr, reduce_loss.data.cpu().numpy()))
-            if i_iter % args.save_pred_every == 0 and i_iter > args.save_start:
+            if epoch % 9 == 0:
                 print('save models ...')
                 torch.save(deeplab.state_dict(), osp.join(args.save_dir, str(args.arch) + str(i_iter) + '.pth'))
-
+    
+    writer.close()
+    
     end = timeit.default_timer()
 
     if args.local_rank == 0:
