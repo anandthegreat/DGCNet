@@ -218,7 +218,7 @@ def val():
             scale=False, mirror=False, RGB=args.rgb)
 
     elif args.data_set == 'pascalvoc':
-        dataset = VOCSegmentation(args.data_dir, image_set = 'val', crop_size = (321, 321), 
+        dataset = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = (321, 321), 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
 
     testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
