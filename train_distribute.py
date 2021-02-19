@@ -17,6 +17,7 @@ from torch.utils import data
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
+from collections import Counter
 
 from libs.utils.logger import Logger as Log
 from libs.utils.tools import adjust_learning_rate, all_reduce_tensor
@@ -235,12 +236,15 @@ def main():
                                    transforms.ToTensor(),
                                    transforms.Normalize([0.4589, 0.4355, 0.4032],[0.2239, 0.2186, 0.2206])])
     if args.data_set == 'pascalvoc':
-        data_set = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = input_size, 
+        data_set = VOCSegmentation(args.data_dir, image_set = 'train', 
             scale = args.random_scale, mean=IMG_MEAN, vars = IMG_VARS, transforms = augs)
 
     elif args.data_set == 'cityscapes':
         data_set = Cityscapes(args.data_dir, args.data_list, max_iters=max_iters, crop_size=input_size,
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
+
+    print(dict(Counter(data_set.targets)))
+    sys.exit()
 
     trainloader = data.DataLoader(
         data_set,

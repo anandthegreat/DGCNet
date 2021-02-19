@@ -67,7 +67,7 @@ class VOCSegmentation(data.Dataset):
             root,
             year= "2012",
             max_iters=None,
-            crop_size=(321,321),
+            crop_size=(320,480),
             mean=(128,128,128),
             vars=(1,1,1),
             scale=True,

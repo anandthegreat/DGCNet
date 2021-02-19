@@ -8,7 +8,9 @@ from torch.utils import data
 import torch.nn as nn
 
 import os
+import sys
 from math import ceil
+from collections import Counter
 from PIL import Image as PILImage
 
 from libs.datasets.cityscapes import Cityscapes
@@ -203,7 +205,7 @@ def val():
     saved_state_dict = torch.load(args.restore_from)
     model.load_state_dict(saved_state_dict,strict=False)
 
-    print("Model: " + args.arch + " Restoring from: " + args.restore_from)
+    # print("Model: " + args.arch + " Restoring from: " + args.restore_from)
 
     model.eval()
     model.cuda()
@@ -219,8 +221,11 @@ def val():
             scale=False, mirror=False, RGB=args.rgb)
 
     elif args.data_set == 'pascalvoc':
-        dataset = VOCSegmentation(args.data_dir, image_set = 'train', crop_size = (321, 321), 
+        dataset = VOCSegmentation(args.data_dir, image_set = 'train', 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
+
+    print(dict(Counter(dataset.targets)))
+    sys.exit()
 
     testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
     print("testloader: " + str(len(testloader)))
