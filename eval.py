@@ -204,6 +204,7 @@ def val():
     model.load_state_dict(saved_state_dict,strict=False)
 
     print("Model: " + args.arch + " Restoring from: " + args.restore_from)
+    
     model.eval()
     model.cuda()
     if args.rgb == 1:
