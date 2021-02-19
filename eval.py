@@ -204,7 +204,7 @@ def val():
     model.load_state_dict(saved_state_dict,strict=False)
 
     print("Model: " + args.arch + " Restoring from: " + args.restore_from)
-    
+
     model.eval()
     model.cuda()
     if args.rgb == 1:
@@ -223,6 +223,7 @@ def val():
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
 
     testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
+    print("testloader: " + str(len(testloader)))
 
     confusion_matrix = np.zeros((args.num_classes, args.num_classes))
     palette = get_palette(256)
