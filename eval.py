@@ -43,12 +43,12 @@ def get_arguments():
     parser.add_argument("--data_list", type=str, default=DATA_LIST_PATH,
                         help="Path to the file listing the images in the dataset.")
     parser.add_argument("--data_set", type=str, default="cityscapes", help="dataset to train")
-    parser.add_argument("--arch",type=str,default="CascadeRelatioNet_res50")
+    parser.add_argument("--arch",type=str,default="DualSeg_res50")
     parser.add_argument("--ignore_label", type=int, default=IGNORE_LABEL,
                         help="The index of the label to ignore during the training.")
     parser.add_argument("--num_classes", type=int, default=19,
                         help="Number of classes to predict (including background).")
-    parser.add_argument("--restore_from", type=str, default=RESTORE_FROM,
+    parser.add_argument("--restore_from", type=str, default=None,
                         help="Where restore models parameters from.")
     parser.add_argument("--gpu", type=str, default='0',
                         help="choose gpu device.")
