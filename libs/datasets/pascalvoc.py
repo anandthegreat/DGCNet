@@ -95,6 +95,7 @@ class VOCSegmentation(data.Dataset):
 #        super(VOCSegmentation, self).__init__(root, transforms, transform, target_transform)
         self.scale = scale
         self.crop_h, self.crop_w = crop_size
+        self.crop_size = crop_size
         self.ignore_label = ignore_label
         self.mean = mean
         self.vars = vars
