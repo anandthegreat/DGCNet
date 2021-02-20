@@ -127,6 +127,13 @@ class VOCSegmentation(data.Dataset):
 
         self.images = [os.path.join(image_dir, x + ".jpg") for x in file_names]
         self.masks = [os.path.join(mask_dir, x + ".png") for x in file_names]
+        for i in len(self.images):
+            self.images[i] = cv2.imread(self.images[i], cv2.IMREAD_COLOR)
+            self.masks[i] = cv2.imread(self.masks[i])
+
+        images = self.filter(self.images)
+        masks = self.filter(self.masks)
+        
         if not max_iters==None:
             self.images = self.images * int(np.ceil(float(max_iters) / len(self.images)))
             self.masks = self.masks * int(np.ceil(float(max_iters) / len(self.masks)))
@@ -148,14 +155,12 @@ class VOCSegmentation(data.Dataset):
         Returns:
             tuple: (image, target) where target is the image segmentation.
         """
-        image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
-        label = cv2.imread(self.masks[index])
+        # image = cv2.imread(self.images[index], cv2.IMREAD_COLOR)
+        # label = cv2.imread(self.masks[index])
         # print("LABEL'S SHAPE IS: ", label.shape)
         # label = voc_label_indices(label, self.colormap2label)
         # print("successfully loaded image and label")
-        image = self.filter(image)
-        label = self.filter(label)
-        image, label = voc_rand_crop(image, label, *self.crop_size)
+        image, label = voc_rand_crop(self.images[index], self.masks[index], *self.crop_size)
         return image, voc_label_indices(label, self.colormap2label)
 
         # if self.transforms is not None:
