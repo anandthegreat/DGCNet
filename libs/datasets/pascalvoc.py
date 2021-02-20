@@ -3,7 +3,6 @@ import tarfile
 import collections
 import torch
 from torch.utils import data
-from torchvision import transforms
 import torchvision
 from PIL import Image
 import cv2
@@ -56,9 +55,9 @@ def voc_label_indices(colormap, colormap2label):
 
 def voc_rand_crop(feature, label, height, width):
     """Randomly crop for both feature and label images."""
-    rect = transforms.RandomCrop.get_params(feature, (height, width))
-    feature = transforms.functional.crop(feature, *rect)
-    label = transforms.functional.crop(label, *rect)
+    rect = torchvision.transforms.RandomCrop.get_params(feature, (height, width))
+    feature = torchvision.transforms.functional.crop(feature, *rect)
+    label = torchvision.transforms.functional.crop(label, *rect)
     return feature, label
 
 class VOCSegmentation(data.Dataset):
