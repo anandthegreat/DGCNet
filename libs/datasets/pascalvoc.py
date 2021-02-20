@@ -161,7 +161,9 @@ class VOCSegmentation(data.Dataset):
         # print("LABEL'S SHAPE IS: ", label.shape)
         # label = voc_label_indices(label, self.colormap2label)
         # print("successfully loaded image and label")
-        image, label = voc_rand_crop(self.images[index], self.masks[index], *self.crop_size)
+
+        # image, label = voc_rand_crop(self.images[index], self.masks[index], *self.crop_size)
+        image, label = self.images[index], self.masks[index]
         image = np.asarray(image, float32)
         label = np.asarray(label, float32)
         # image = image.transpose((2, 0, 1))
