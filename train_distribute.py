@@ -304,7 +304,7 @@ def main():
     if args.local_rank == 0:
         Log.info("Training cost: "+ str(end - start) + 'seconds')
         Log.info("Save final models")
-        torch.save(deeplab.state_dict(), osp.join(args.save_dir, str(args.arch) + '_final' + '.pth'))
+        torch.save(deeplab.state_dict(), osp.join(args.save_dir, str(args.arch) + '_' + str(args.num_steps) + 'epoch_' + str(args.batch_size_per_gpu)+'.pth'))
 
 
 if __name__ == '__main__':

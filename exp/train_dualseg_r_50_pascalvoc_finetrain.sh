@@ -5,9 +5,9 @@
 python train_distribute.py --data_set pascalvoc \
 --data_dir "/home/anand17218/GALD-DGCNet/dataset/PASCALVOC2012/VOCdevkit/VOC2012" \
 --arch DualSeg_res50 \
---batch_size_per_gpu 1 \
+--batch_size_per_gpu 10 \
 --learning_rate 0.01 \
---num_steps 1 \
+--num_steps 500 \
 --num_classes 21 \
 --save_dir "./save_dualseg_r50/pascalvoc" \
 --ohem 1 --ohem_thres 0.7 --ohem_keep 100000 \
