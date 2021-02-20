@@ -4,6 +4,7 @@ import collections
 import torch
 from torch.utils import data
 from torchvision import transforms
+import torchvision
 from PIL import Image
 import cv2
 import random
