@@ -23,7 +23,7 @@ from libs.utils.logger import Logger as Log
 from libs.utils.tools import adjust_learning_rate, all_reduce_tensor
 from libs.datasets.cityscapes import Cityscapes
 from libs.datasets.pascalvoc import VOCSegmentation
-from libs.datasets.pascalvoc import INSTANCE_COUNT
+from libs.datasets.pascalvoc import instance_count
 from libs.core.loss import CriterionOhemDSN, CriterionDSN
 
 
@@ -244,7 +244,7 @@ def main():
         data_set = Cityscapes(args.data_dir, args.data_list, max_iters=max_iters, crop_size=input_size,
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
-    print(INSTANCE_COUNT)
+    print(instance_count)
     sys.exit()
 
     trainloader = data.DataLoader(
