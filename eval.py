@@ -12,6 +12,7 @@ import sys
 from math import ceil
 from collections import Counter
 from PIL import Image as PILImage
+from sklearn.metrics import confusion_matrix
 
 from libs.datasets.cityscapes import Cityscapes
 from libs.datasets.pascalvoc import VOCSegmentation
@@ -194,6 +195,7 @@ class custom_conf_matrix():
         self.lbl = lbl
         self.n_class = n_class
         self.conf_mat = np.zeros((self.n_class, self.n_class))
+
     def update_step(self,truth_lbl,pred_lbl):
         if(truth_lbl == 255).all():
             return
@@ -275,7 +277,7 @@ def val():
     # PASCAL VOC START
         with torch.no_grad():
             out = model(image.cuda())    
-            pred = out.data.max(1)[1].cpu().numpy()
+            pred = out.max(1)[1].cpu().numpy()
             gt = label.data.cpu().numpy()
             conf_mat.update_step(gt.flatten(), pred.flatten())
     mean_IU = conf_mat.compute_mean_iou()
