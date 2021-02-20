@@ -248,7 +248,8 @@ def main():
     instance_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     colormap2label = build_colormap2label()
     for _, label in data_set:
-        instance_count[voc_label_indices(label, colormap2label)] += 1
+        for pixel in voc_label_indices(label, colormap2label).flatten():
+            instance_count[pixel] += 1
     print(instance_count)
     sys.exit()
 
