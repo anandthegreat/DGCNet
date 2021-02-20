@@ -7,6 +7,7 @@ from PIL import Image
 import cv2
 import random
 import numpy as np
+import sys
 
 DATASET_YEAR_DICT = {
     '2012': {
@@ -150,6 +151,8 @@ class VOCSegmentation(data.Dataset):
         # print("successfully loaded image and label")
         image = self.filter(image)
         label = self.filter(label)
+        print(type(image))
+        sys.exit()
         image, label = voc_rand_crop(image, label, *self.crop_size)
         return image, voc_label_indices(label, self.colormap2label)
 
