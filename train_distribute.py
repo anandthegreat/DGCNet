@@ -244,7 +244,7 @@ def main():
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
     classes = [label for _, label in data_set]
-    print(Counter(classes))
+    Counter(classes)
     sys.exit()
 
     trainloader = data.DataLoader(
