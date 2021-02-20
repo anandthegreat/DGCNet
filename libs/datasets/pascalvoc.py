@@ -55,8 +55,9 @@ def voc_label_indices(colormap, colormap2label):
 
 def voc_rand_crop(feature, label, height, width):
     """Randomly crop for both feature and label images."""
-    feature = transforms.ToTensor(feature)
-    label = transforms.ToTensor(label)
+    tran = transforms.ToTensor()
+    feature = tran(feature)
+    label = tran(label)
     rect = transforms.RandomCrop.get_params(feature, (height, width))
     feature = transforms.functional.crop(feature, *rect)
     label = transforms.functional.crop(label, *rect)
