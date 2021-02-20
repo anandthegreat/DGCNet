@@ -222,7 +222,10 @@ def val():
 #    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
     h, w = args.input_size, args.input_size
     if args.whole:
-        input_size = (1024, 2048)
+        if args.data_set == 'pascalvoc':
+            input_size = (320, 480)
+        else:
+            input_size = (1024, 2048)
     else:
         input_size = (h, w)
     import libs.models as models
@@ -276,12 +279,11 @@ def val():
 
     # PASCAL VOC START
         with torch.no_grad():
-            out = model(image.cuda())    
-            pred = np.asarray(np.argmax(out, axis=1), dtype=np.uint8)
-            # pred = out.data.max(1)[1].cpu().numpy()
-            # gt = label.data.cpu().numpy()
+            out = predict_whole(model, image.data, input_size)    
+            pred = np.asarray(np.argmax(out, axis=2), dtype=np.uint8)
             gt = np.asarray(label[0].numpy(), dtype=np.int)
             conf_mat.update_step(gt.flatten(), pred.flatten())
+
     mean_IU = conf_mat.compute_mean_iou()
     print('mean_IU: ' + str(mean_IU))
 
