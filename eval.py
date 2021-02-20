@@ -224,9 +224,6 @@ def val():
         dataset = VOCSegmentation(args.data_dir, image_set = 'train', 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
 
-    print(dict(Counter(dataset.targets)))
-    sys.exit()
-
     testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
     print("testloader: " + str(len(testloader)))
 

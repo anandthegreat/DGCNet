@@ -27,6 +27,9 @@ VOC_CLASSES = ['background', 'aeroplane', 'bicycle', 'bird', 'boat',
                'diningtable', 'dog', 'horse', 'motorbike', 'person',
                'potted plant', 'sheep', 'sofa', 'train', 'tv/monitor']
 
+INSTANCE_COUNT = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
 def build_colormap2label():
     """Build an RGB color to label mapping for segmentation."""
     colormap2label = np.zeros(256 ** 3)   #create an array of size 16777216 (=256^3)
@@ -42,6 +45,7 @@ def voc_label_indices(colormap, colormap2label):
     idx = ((colormap[:, :, 0] * 256 + colormap[:, :, 1]) * 256
            + colormap[:, :, 2])     
     #calculate label value and find it's label mapping from colormap2label
+    INSTANCE_COUNT[idx] += 1
     return colormap2label[idx]
 
 class VOCSegmentation(data.Dataset):
