@@ -243,7 +243,7 @@ def main():
         data_set = Cityscapes(args.data_dir, args.data_list, max_iters=max_iters, crop_size=input_size,
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
-    classes = [label for _, label in dataset]
+    classes = [label for _, label in data_set]
     print(dict(Counter(classes)))
     sys.exit()
 
