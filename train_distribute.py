@@ -243,7 +243,6 @@ def main():
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
     instance_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    colormap2label = build_colormap2label()
     for _, label in data_set:
         for pixel in label.flatten():
             instance_count[pixel] += 1
