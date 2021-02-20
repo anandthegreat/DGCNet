@@ -4,7 +4,7 @@ import collections
 import torch
 from torch.utils import data
 import torchvision
-from torchvision.io.image import read_image
+from torchvision.io import read_image
 from PIL import Image
 import cv2
 import random
