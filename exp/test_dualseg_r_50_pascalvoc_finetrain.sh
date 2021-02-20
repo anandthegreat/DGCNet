@@ -6,5 +6,5 @@ python eval.py --data_set pascalvoc \
 --num_classes 21 \
 --arch DualSeg_res50 \
 --rgb 1 \
---restore_from "./save_dualseg_r50/pascalvoc/DualSeg_res50_final.pth" \
+--restore_from "./save_dualseg_r50/pascalvoc/DualSeg_res50_500epoch.pth" \
 --output_dir "./dual_seg_r50/pascalvoc"

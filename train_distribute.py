@@ -242,14 +242,14 @@ def main():
         data_set = Cityscapes(args.data_dir, args.data_list, crop_size=input_size,
                       scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN,vars=IMG_VARS, RGB= args.rgb)
 
-    instance_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    for _, label in data_set:
-        for pixel in label.flatten():
-            if(int(pixel) == 255):
-                pixel = 21
-            instance_count[int(pixel)] += 1
-    print(instance_count)
-    sys.exit()
+    # instance_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # for _, label in data_set:
+    #     for pixel in label.flatten():
+    #         if(int(pixel) == 255):
+    #             pixel = 21
+    #         instance_count[int(pixel)] += 1
+    # print(instance_count)
+    # sys.exit()
 
     trainloader = data.DataLoader(
         data_set,
