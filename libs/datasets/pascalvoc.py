@@ -162,6 +162,10 @@ class VOCSegmentation(data.Dataset):
         # label = voc_label_indices(label, self.colormap2label)
         # print("successfully loaded image and label")
         image, label = voc_rand_crop(self.images[index], self.masks[index], *self.crop_size)
+        image = np.asarray(image, float32)
+        label = np.asarray(label, float32)
+        image = image.transpose((2, 0, 1))
+        print(image.shape, label.shape)
         return image, voc_label_indices(label, self.colormap2label)
 
         # if self.transforms is not None:
