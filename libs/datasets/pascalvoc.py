@@ -46,8 +46,7 @@ def build_colormap2label():
 #@save
 def voc_label_indices(colormap, colormap2label):
     """Map an RGB color to a label."""
-    print(colormap)
-    sys.exit()
+    colormap = np.asarray(colormap)
     colormap = colormap.astype(np.int32)
     # print("LABEL'S SHAPE IN voc_label_indices IS: ", colormap.shape)
     idx = ((colormap[:, :, 0] * 256 + colormap[:, :, 1]) * 256
