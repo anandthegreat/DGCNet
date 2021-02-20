@@ -60,7 +60,7 @@ def voc_rand_crop(feature, label, height, width):
     # label1 = tran(label)
     rect = transforms.RandomCrop.get_params(feature1, (height, width))
     feature = transforms.functional.crop(Image.fromarray(feature), *rect)
-    label = transforms.functional.crop(label, *rect)
+    label = transforms.functional.crop(Image.fromarray(label), *rect)
     return feature, label
 
 class VOCSegmentation(data.Dataset):
