@@ -150,7 +150,7 @@ class VOCSegmentation(data.Dataset):
         # print("successfully loaded image and label")
         image = self.filter(image)
         label = self.filter(label)
-        image, label = voc_rand_crop(self.image, self.label, *self.crop_size)
+        image, label = voc_rand_crop(image, label, *self.crop_size)
         return image, voc_label_indices(label, self.colormap2label)
 
         # if self.transforms is not None:
