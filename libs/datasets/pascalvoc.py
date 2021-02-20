@@ -127,7 +127,7 @@ class VOCSegmentation(data.Dataset):
 
         self.images = [os.path.join(image_dir, x + ".jpg") for x in file_names]
         self.masks = [os.path.join(mask_dir, x + ".png") for x in file_names]
-        for i in len(self.images):
+        for i in range(len(self.images)):
             self.images[i] = cv2.imread(self.images[i], cv2.IMREAD_COLOR)
             self.masks[i] = cv2.imread(self.masks[i])
 
