@@ -17,14 +17,11 @@ from torch.utils import data
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
 from torch.utils.tensorboard import SummaryWriter
-from collections import Counter
 
 from libs.utils.logger import Logger as Log
 from libs.utils.tools import adjust_learning_rate, all_reduce_tensor
 from libs.datasets.cityscapes import Cityscapes
 from libs.datasets.pascalvoc import VOCSegmentation
-from libs.datasets.pascalvoc import build_colormap2label
-from libs.datasets.pascalvoc import voc_label_indices
 from libs.core.loss import CriterionOhemDSN, CriterionDSN
 
 
@@ -248,7 +245,7 @@ def main():
     instance_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     colormap2label = build_colormap2label()
     for _, label in data_set:
-        for pixel in voc_label_indices(label, colormap2label).flatten():
+        for pixel in label.flatten():
             instance_count[pixel] += 1
     print(instance_count)
     sys.exit()
