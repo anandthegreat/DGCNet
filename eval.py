@@ -274,7 +274,7 @@ def val():
 
     # PASCAL VOC START
         with torch.no_grad():
-            out = model(image)    
+            out = model(image.cuda())    
             pred = out.data.max(1)[1].cpu().numpy()
             gt = label.data.cpu().numpy()
             conf_mat.update_step(gt.flatten(), pred.flatten())
