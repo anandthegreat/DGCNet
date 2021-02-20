@@ -4,7 +4,6 @@ import collections
 import torch
 from torch.utils import data
 import torchvision
-from torchvision.io import read_image
 from PIL import Image
 import cv2
 import random
@@ -146,8 +145,8 @@ class VOCSegmentation(data.Dataset):
         Returns:
             tuple: (image, target) where target is the image segmentation.
         """
-        image = read_image(self.images[index])
-        label = read_image(self.masks[index], torchvision.io.image.ImageReadMode.RGB)
+        image = torchvision.io.read_image(self.images[index])
+        label = torchvision.io.read_image(self.masks[index], torchvision.io.image.ImageReadMode.RGB)
         # print("LABEL'S SHAPE IS: ", label.shape)
         # label = voc_label_indices(label, self.colormap2label)
         # print("successfully loaded image and label")
