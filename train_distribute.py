@@ -245,7 +245,7 @@ def main():
     instance_count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     for _, label in data_set:
         for pixel in label.flatten():
-            instance_count[pixel] += 1
+            instance_count[int(pixel)] += 1
     print(instance_count)
     sys.exit()
 
