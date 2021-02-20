@@ -209,7 +209,13 @@ class custom_conf_matrix():
         ground_truth_set = self.conf_mat.sum(axis=1)
         predicted_set = self.conf_mat.sum(axis=0)
         union =  ground_truth_set + predicted_set - intersection
-        return np.mean(intersection / union.astype(np.float32))
+        IU_array = np.zeros(len(intersection))
+        for i in range(len(intersection)):
+            if(int(union[i]) != 0):
+                IU_array[i] += (intersection[i] / union[i].astype(np.float32))
+            else:
+                IU_array[i] = 0
+        return IU_array, np.mean(IU_array)
 
     def reset(self):
         self.conf_mat = np.zeros((self.n_class, self.n_class))
@@ -286,9 +292,8 @@ def val():
             gt = np.asarray(label[0].numpy(), dtype=np.int)
             conf_mat.update_step(gt.flatten(), pred.flatten())
 
-    mean_IU = conf_mat.compute_mean_iou()
-    print('mean_IU: ' + str(mean_IU))
-
+    IU_array, mean_IU = conf_mat.compute_mean_iou()
+    print({'meanIU': mean_IU, 'IU_array': IU_array})
 
 
 
