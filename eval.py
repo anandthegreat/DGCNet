@@ -277,7 +277,7 @@ def val():
     # PASCAL VOC START
         with torch.no_grad():
             out = model(image.cuda())    
-            pred = np.asarray(np.argmax(out, axis=2), dtype=np.uint8)
+            pred = np.asarray(np.argmax(out, axis=1), dtype=np.uint8)
             # pred = out.data.max(1)[1].cpu().numpy()
             # gt = label.data.cpu().numpy()
             gt = np.asarray(label[0].numpy(), dtype=np.int)
