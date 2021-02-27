@@ -281,8 +281,8 @@ def val():
     # PASCAL VOC END
     
     for index, batch in enumerate(testloader):
-        if index % 100 == 0:
-            print('%d processd' % (index))
+        if index % 99 == 0:
+            print('%d processd' % (index + 1))
         image, label = batch
 
     # PASCAL VOC START
