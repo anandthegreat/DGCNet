@@ -286,11 +286,11 @@ def val():
         image, label = batch
 
     # PASCAL VOC START
-        with torch.no_grad():
-            out = predict_whole(model, image, input_size)    
-            pred = np.asarray(np.argmax(out, axis=2), dtype=np.uint8)
-            gt = np.asarray(label[0].numpy(), dtype=np.int)
-            conf_mat.update_step(gt.flatten(), pred.flatten())
+        # with torch.no_grad():
+        #     out = predict_whole(model, image, input_size)    
+        #     pred = np.asarray(np.argmax(out, axis=2), dtype=np.uint8)
+        #     gt = np.asarray(label[0].numpy(), dtype=np.int)
+        #     conf_mat.update_step(gt.flatten(), pred.flatten())
 
     IU_array, mean_IU = conf_mat.compute_mean_iou()
     print({'meanIU': mean_IU, 'IU_array': IU_array})
