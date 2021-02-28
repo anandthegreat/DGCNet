@@ -235,7 +235,7 @@ def val():
 
     confusion_matrix = np.zeros((args.num_classes, args.num_classes))
     palette = get_palette(256)
-    # interp = nn.Upsample(size=(1024, 2048), mode='bilinear', align_corners=True)
+    interp = nn.Upsample(size=(1024, 2048), mode='bilinear', align_corners=True)
 
     output_images = os.path.join(args.output_dir, "./images")
     output_results = os.path.join(args.output_dir, "./result")
