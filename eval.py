@@ -245,10 +245,6 @@ def val():
         os.makedirs(output_images)
     if not os.path.exists(output_results):
         os.makedirs(output_results)
-
-    # PASCAL VOC START
-    conf_mat = custom_conf_matrix([i for i in range(0,21)],21)
-    # PASCAL VOC END
     
     for index, batch in enumerate(testloader):
         if index % 99 == 0:
