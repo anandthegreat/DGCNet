@@ -12,7 +12,6 @@ import sys
 from math import ceil
 from collections import Counter
 from PIL import Image as PILImage
-from sklearn.metrics import confusion_matrix
 
 from libs.datasets.cityscapes import Cityscapes
 from libs.datasets.pascalvoc import VOCSegmentation
@@ -138,8 +137,6 @@ def predict_sliding(net, image, tile_size, classes, flip_evaluation):
 
 
 def predict_whole(net, image, tile_size):
-    # args = get_arguments()
-    # if args.data_set != 'pascalvoc':
     image = torch.from_numpy(image)
     interp = nn.Upsample(size=tile_size, mode='bilinear', align_corners=True)
     prediction = net(image.cuda())
@@ -227,7 +224,7 @@ def val():
             scale=False, mirror=False, RGB=args.rgb)
 
     elif args.data_set == 'pascalvoc':
-        dataset = VOCSegmentation(args.data_dir, image_set = 'train', 
+        dataset = VOCSegmentation(args.data_dir, image_set = 'val', 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
 
     testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
@@ -235,8 +232,11 @@ def val():
 
     confusion_matrix = np.zeros((args.num_classes, args.num_classes))
     palette = get_palette(256)
-    interp = nn.Upsample(size=(1024, 2048), mode='bilinear', align_corners=True)
-
+    if args.data_set == 'pascalvoc':
+        interp = nn.Upsample(size=(320, 480), mode='bilinear', align_corners=True)
+    else:
+        interp = nn.Upsample(size=(1024, 2048), mode='bilinear', align_corners=True)
+        
     output_images = os.path.join(args.output_dir, "./images")
     output_results = os.path.join(args.output_dir, "./result")
     if not os.path.exists(args.output_dir):
@@ -245,12 +245,11 @@ def val():
         os.makedirs(output_images)
     if not os.path.exists(output_results):
         os.makedirs(output_results)
-    
-    for index, batch in enumerate(testloader):
-        if index % 99 == 0:
-            print('%d processd' % (index + 1))
-        image, label = batch
 
+    for index, batch in enumerate(testloader):
+        if index % 100 == 0:
+            print('%d processd' % (index))
+        image, label = batch
         with torch.no_grad():
             if args.whole:
                 output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
