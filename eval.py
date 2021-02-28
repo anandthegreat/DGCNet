@@ -142,6 +142,8 @@ def predict_whole(net, image, tile_size):
     if args.data_set != 'pascalvoc':
         image = torch.from_numpy(image)
     interp = nn.Upsample(size=tile_size, mode='bilinear', align_corners=True)
+    print(image.shape())
+    sys.exit()
     prediction = net(image.cuda())
     if isinstance(prediction, list):
         prediction = prediction[0]
@@ -287,8 +289,7 @@ def val():
 
     # PASCAL VOC START
         with torch.no_grad():
-            # out = predict_whole(model, image, input_size)    
-            print(image.shape)
+            out = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)  
             out = model(image)
             # pred = np.asarray(np.argmax(out, axis=2), dtype=np.uint8)
             pred = out.data.max(1)[1].cpu().numpy()
