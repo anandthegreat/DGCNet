@@ -138,9 +138,9 @@ def predict_sliding(net, image, tile_size, classes, flip_evaluation):
 
 
 def predict_whole(net, image, tile_size):
-    args = get_arguments()
-    if args.data_set != 'pascalvoc':
-        image = torch.from_numpy(image)
+    # args = get_arguments()
+    # if args.data_set != 'pascalvoc':
+    #     image = torch.from_numpy(image)
     interp = nn.Upsample(size=tile_size, mode='bilinear', align_corners=True)
     prediction = net(image.cuda())
     if isinstance(prediction, list):
