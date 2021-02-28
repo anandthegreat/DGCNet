@@ -142,8 +142,6 @@ def predict_whole(net, image, tile_size):
     if args.data_set != 'pascalvoc':
         image = torch.from_numpy(image)
     interp = nn.Upsample(size=tile_size, mode='bilinear', align_corners=True)
-    print(image.cuda().shape)
-    sys.exit()
     prediction = net(image.cuda())
     if isinstance(prediction, list):
         prediction = prediction[0]
@@ -192,36 +190,6 @@ def get_confusion_matrix(gt_label, pred_label, class_num):
                 confusion_matrix[i_label, i_pred_label] = label_count[cur_index]
 
     return confusion_matrix
-
-#   PASCAL VOC START ----------------
-class custom_conf_matrix():
-    def __init__(self, lbl,n_class):
-        self.lbl = lbl
-        self.n_class = n_class
-        self.conf_mat = np.zeros((self.n_class, self.n_class))
-
-    def update_step(self,truth_lbl,pred_lbl):
-        if(truth_lbl == 255).all():
-            return
-        curr_conf_mat = confusion_matrix(y_true=truth_lbl, y_pred=pred_lbl, labels=self.lbl)
-        self.conf_mat += curr_conf_mat
-
-    def compute_mean_iou(self):
-        intersection = np.diag(self.conf_mat)
-        ground_truth_set = self.conf_mat.sum(axis=1)
-        predicted_set = self.conf_mat.sum(axis=0)
-        union =  ground_truth_set + predicted_set - intersection
-        IU_array = np.zeros(len(intersection))
-        for i in range(len(intersection)):
-            if(int(union[i]) != 0):
-                IU_array[i] += (intersection[i] / union[i].astype(np.float32))
-            else:
-                IU_array[i] = 0
-        return IU_array, np.mean(IU_array)
-
-    def reset(self):
-        self.conf_mat = np.zeros((self.n_class, self.n_class))
-#   PASCAL VOC END -------------------
 
 
 def val():
@@ -287,49 +255,33 @@ def val():
             print('%d processd' % (index + 1))
         image, label = batch
 
-    # PASCAL VOC START
         with torch.no_grad():
-            out = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)  
-            out = model(image)
-            # pred = np.asarray(np.argmax(out, axis=2), dtype=np.uint8)
-            pred = out.data.max(1)[1].cpu().numpy()
-            gt = np.asarray(label[0].numpy(), dtype=np.int)
-            conf_mat.update_step(gt.flatten(), pred.flatten())
+            if args.whole:
+                output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
+            else:
+                output = predict_sliding(model, image.numpy(), input_size, args.num_classes, True)
 
-    IU_array, mean_IU = conf_mat.compute_mean_iou()
+        seg_pred = np.asarray(np.argmax(output, axis=2), dtype=np.uint8)
+        output_im = PILImage.fromarray(seg_pred)
+        output_im.putpalette(palette)
+
+        seg_gt = np.asarray(label[0].numpy(), dtype=np.int)
+
+        ignore_index = seg_gt != 255
+        seg_gt = seg_gt[ignore_index]
+        seg_pred = seg_pred[ignore_index]
+        confusion_matrix += get_confusion_matrix(seg_gt, seg_pred, args.num_classes)
+
+    pos = confusion_matrix.sum(1)
+    res = confusion_matrix.sum(0)
+    tp = np.diag(confusion_matrix)
+
+    IU_array = (tp / np.maximum(1.0, pos + res - tp))
+    mean_IU = IU_array.mean()
+
     print({'meanIU': mean_IU, 'IU_array': IU_array})
-
-
-
-    # PASCAL VOC END
-
-        # with torch.no_grad():
-    #         if args.whole:
-    #             output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
-    #         else:
-    #             output = predict_sliding(model, image.numpy(), input_size, args.num_classes, True)
-
-    #     seg_pred = np.asarray(np.argmax(output, axis=2), dtype=np.uint8)
-    #     output_im = PILImage.fromarray(seg_pred)
-    #     output_im.putpalette(palette)
-
-    #     seg_gt = np.asarray(label[0].numpy(), dtype=np.int)
-
-    #     ignore_index = seg_gt != 255
-    #     seg_gt = seg_gt[ignore_index]
-    #     seg_pred = seg_pred[ignore_index]
-    #     confusion_matrix += get_confusion_matrix(seg_gt, seg_pred, args.num_classes)
-
-    # pos = confusion_matrix.sum(1)
-    # res = confusion_matrix.sum(0)
-    # tp = np.diag(confusion_matrix)
-
-    # IU_array = (tp / np.maximum(1.0, pos + res - tp))
-    # mean_IU = IU_array.mean()
-
-    # print({'meanIU': mean_IU, 'IU_array': IU_array})
-    # with open(os.path.join(args.output_dir, "result", 'result.txt'), 'w') as f:
-    #     f.write(json.dumps({'meanIU': mean_IU, 'IU_array': IU_array.tolist()}))
+    with open(os.path.join(args.output_dir, "result", 'result.txt'), 'w') as f:
+        f.write(json.dumps({'meanIU': mean_IU, 'IU_array': IU_array.tolist()}))
 
 
 if __name__ == '__main__':
