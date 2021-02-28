@@ -142,7 +142,7 @@ def predict_whole(net, image, tile_size):
     if args.data_set != 'pascalvoc':
         image = torch.from_numpy(image)
     interp = nn.Upsample(size=tile_size, mode='bilinear', align_corners=True)
-    print(image.shape())
+    print(image.shape)
     sys.exit()
     prediction = net(image.cuda())
     if isinstance(prediction, list):
