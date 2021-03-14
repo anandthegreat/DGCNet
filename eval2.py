@@ -152,7 +152,7 @@ def predict_multiscale(net, image, tile_size, scales, classes, flip_evaluation):
         for the input of larger size, we would choose the cropping method to ensure that GPU memory is enough.
     """
     image = image.data
-    N_, C_, H_, W_ = image.shape
+    N_, H_, W_, C_ = image.shape
     full_probs = np.zeros((H_, W_, classes))
     for scale in scales:
         scale = float(scale)
