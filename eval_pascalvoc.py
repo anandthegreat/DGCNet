@@ -14,7 +14,6 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
 import torchvision.transforms as transforms
-import imageio
 import scipy.misc as m
 from PIL import Image
 from tqdm import tqdm
