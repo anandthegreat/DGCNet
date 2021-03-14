@@ -168,7 +168,7 @@ class VOCSegmentation(data.Dataset):
         label = np.asarray(label, np.float32)
         # image = image.transpose((2, 0, 1))
 
-        img_h, img_w = label.shape
+        img_h, img_w, chnls = label.shape
         pad_h = max(self.crop_h - img_h, 0)
         pad_w = max(self.crop_w - img_w, 0)
         if pad_h > 0 or pad_w > 0:
@@ -188,7 +188,7 @@ class VOCSegmentation(data.Dataset):
         image = np.asarray(img_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
         label = np.asarray(label_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
 
-        
+
         print(image.shape, label.shape)
         return image, voc_label_indices(label, self.colormap2label)
 
