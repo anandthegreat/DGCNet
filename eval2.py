@@ -153,7 +153,7 @@ def predict_multiscale(net, image, tile_size, scales, classes, flip_evaluation):
     """
     image = image.data
     N_, H_, W_, C_ = image.shape
-    full_probs = np.zeros((H_, W_, classes))
+    full_probs = np.zeros((320, 480, classes))
     for scale in scales:
         scale = float(scale)
         print("Predicting image scaled by %f" % scale)
