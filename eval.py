@@ -227,7 +227,7 @@ def val():
         dataset = VOCSegmentation(args.data_dir, image_set = 'val', 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
 
-    testloader = data.DataLoader(dataset, batch_size=8, shuffle=False, pin_memory=True)
+    testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
     print("testloader: " + str(len(testloader)))
 
     confusion_matrix = np.zeros((args.num_classes, args.num_classes))
