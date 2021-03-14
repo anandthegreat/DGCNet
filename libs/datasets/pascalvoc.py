@@ -181,7 +181,7 @@ class VOCSegmentation(data.Dataset):
         else:
             img_pad, label_pad = image, label
 
-        img_h, img_w = label_pad.shape
+        img_h, img_w, chnls = label_pad.shape
         h_off = random.randint(0, img_h - self.crop_h)
         w_off = random.randint(0, img_w - self.crop_w)
 
