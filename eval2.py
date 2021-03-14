@@ -136,6 +136,7 @@ def predict_sliding(net, image, tile_size, classes, flip_evaluation):
 
 def predict_whole(net, image, tile_size):
     image = torch.from_numpy(image)
+    image = image.permute(0, 3, 1, 2)
     interp = nn.Upsample(size=tile_size, mode='bilinear', align_corners=True)
     prediction = net(image.cuda())
     if isinstance(prediction, list):
