@@ -73,12 +73,12 @@ def val():
 
     model.eval()
     model.cuda()
-
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     conf_mat = custom_conf_matrix([i for i in range(0,21)],21)
     with torch.no_grad():
         val_loss=0
         for vi, (vimg,vlbl) in enumerate(tqdm(val_loader)):
-            vimg, vlbl = vimg.to(cuda), vlbl.to(cuda)
+            vimg, vlbl = vimg.to(device), vlbl.to(device)
             vout = model(imgs)
             pred = vout.data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
