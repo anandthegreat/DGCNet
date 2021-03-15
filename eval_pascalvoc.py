@@ -82,11 +82,11 @@ def val():
             vimg, vlbl = vimg.to(device), vlbl.to(device)
             vout = model(vimg)
             print("------vout------")
-            print(vout)
+            print(vout.shape)
             # pred = vout.data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
             print("------gt------")
-            print(gt)
+            print(gt.shape)
             sys.exit()
             # conf_mat.update_step(gt.flatten(), pred.flatten())  
     
