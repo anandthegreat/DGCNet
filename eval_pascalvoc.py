@@ -82,7 +82,7 @@ def val():
             vimg, vlbl = vimg.to(device), vlbl.to(device)
             vout = model(vimg)
             print("------vout------")
-            print(vout.shape)
+            print(len(vout))
             # pred = vout.data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
             print("------gt------")
