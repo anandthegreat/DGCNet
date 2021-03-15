@@ -79,7 +79,7 @@ def val():
         val_loss=0
         for vi, (vimg,vlbl) in enumerate(tqdm(val_loader)):
             vimg, vlbl = vimg.to(device), vlbl.to(device)
-            vout = model(imgs)
+            vout = model(vimg)
             pred = vout.data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
             conf_mat.update_step(gt.flatten(), pred.flatten())  
