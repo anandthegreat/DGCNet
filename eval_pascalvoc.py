@@ -7,6 +7,7 @@ import torch
 from torch.utils import data
 import torch.nn as nn
 import os
+import sys
 from tqdm import tqdm
 from metrics import custom_conf_matrix
 from math import ceil
@@ -80,9 +81,14 @@ def val():
         for vi, (vimg,vlbl) in enumerate(tqdm(val_loader)):
             vimg, vlbl = vimg.to(device), vlbl.to(device)
             vout = model(vimg)
-            pred = vout.data.max(1)[1].cpu().numpy()
+            print("------vout------")
+            print(vout)
+            # pred = vout.data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
-            conf_mat.update_step(gt.flatten(), pred.flatten())  
+            print("------gt------")
+            print(gt)
+            sys.exit()
+            # conf_mat.update_step(gt.flatten(), pred.flatten())  
     
     score = conf_mat.compute_mean_iou() 
     print("mean iou ",score)
