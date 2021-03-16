@@ -263,9 +263,9 @@ def val():
 
         seg_gt = np.asarray(label[0].numpy(), dtype=np.int)
 
-        ignore_index = seg_gt != 255
-        seg_gt = seg_gt[ignore_index]
-        seg_pred = seg_pred[ignore_index]
+        # ignore_index = seg_gt != 255
+        # seg_gt = seg_gt[ignore_index]
+        # seg_pred = seg_pred[ignore_index]
         confusion_matrix += get_confusion_matrix(seg_gt, seg_pred, args.num_classes)
 
     pos = confusion_matrix.sum(1)
