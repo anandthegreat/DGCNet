@@ -81,14 +81,9 @@ def val():
         for vi, (vimg,vlbl) in enumerate(tqdm(val_loader)):
             vimg, vlbl = vimg.to(device), vlbl.to(device)
             vout = model(vimg)
-            print("------vout------")
-            print(vout[0])
-            # pred = vout.data.max(1)[1].cpu().numpy()
+            pred = vout[0].data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
-            print("------gt------")
-            print(gt.shape)
-            sys.exit()
-            # conf_mat.update_step(gt.flatten(), pred.flatten())  
+            conf_mat.update_step(gt.flatten(), pred.flatten())  
     
     score = conf_mat.compute_mean_iou() 
     print("mean iou ",score)
