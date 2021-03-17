@@ -20,13 +20,16 @@ class custom_conf_matrix():
         predicted_set = self.conf_mat.sum(axis=0)
         union =  ground_truth_set + predicted_set - intersection
         
+        print(intersection)
+        print(union)
+
         indices = [8,9,10,11,12,13,14,15,19]
         intersection = np.take(intersection, indices)
         union = np.take(union, indices)
 
         print(intersection)
         print(union)
-        
+
         return np.mean(intersection / np.maximum(1.0, union.astype(np.float32)))
 
     def reset(self):
