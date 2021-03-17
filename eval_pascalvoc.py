@@ -100,9 +100,11 @@ def val():
             pred = interp(pred).cpu().data[0].numpy().transpose(1, 2, 0)
             pred = np.asarray(np.argmax(pred, axis=2), dtype=np.uint8)
 
+
             # vout = model(vimg)
             # pred = vout[0].data.max(1)[1].cpu().numpy()
-            gt = vlbl.data.cpu().numpy()
+            # gt = vlbl.data.cpu().numpy()
+            gt = np.asarray(vlbl[0], dtype=np.int)
             
             print(pred.shape)
             print(gt.shape)
