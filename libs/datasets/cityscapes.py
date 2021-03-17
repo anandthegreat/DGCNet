@@ -108,4 +108,5 @@ class Cityscapes(data.Dataset):
             image = image[:, :, ::flip]
             label = label[:, ::flip]
  #       print("SUCCESSFULL")
+        print(image.shape, label.shape)
         return image.copy(), label.copy()
