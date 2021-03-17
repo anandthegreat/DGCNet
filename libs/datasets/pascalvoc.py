@@ -169,8 +169,8 @@ class VOCSegmentation(data.Dataset):
         label = voc_label_indices(label, self.colormap2label)
         
         img_h, img_w = label.shape
-        h_off = random.randint(0, img_h - self.crop_h)
-        w_off = random.randint(0, img_w - self.crop_w)
+        h_off = random.randint(0, abs(img_h - self.crop_h))
+        w_off = random.randint(0, abs(img_w - self.crop_w))
         image = np.asarray(image[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
         label = np.asarray(label[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
         image = image.transpose((2, 0, 1))

@@ -96,8 +96,8 @@ class Cityscapes(data.Dataset):
             img_pad, label_pad = image, label
 
         img_h, img_w = label_pad.shape
-        h_off = random.randint(0, abs(img_h - self.crop_h))
-        w_off = random.randint(0, abs(img_w - self.crop_w))
+        h_off = random.randint(0, img_h - self.crop_h)
+        w_off = random.randint(0, img_w - self.crop_w)
 
         image = np.asarray(img_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
         label = np.asarray(label_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
