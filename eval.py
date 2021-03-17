@@ -268,8 +268,10 @@ def val():
         output_im = PILImage.fromarray(seg_pred)
         output_im.putpalette(palette)
 
-        seg_gt = np.asarray(label[0].numpy(), dtype=np.int)
-
+        if args.data_set == 'cityscapes':
+            seg_gt = np.asarray(label[0].numpy(), dtype=np.int)
+        else:
+            seg_gt = np.asarray(label[0], dtype=np.int)
         # ignore_index = seg_gt != 255
         # seg_gt = seg_gt[ignore_index]
         # seg_pred = seg_pred[ignore_index]
