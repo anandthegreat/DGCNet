@@ -251,6 +251,9 @@ def val():
         if index % 100 == 0:
             print('%d processd' % (index))
         image, label = batch
+        if args.dataset == 'pascalvoc':
+            image = image.numpy()
+            label = label.numpy()
         print(image.shape)
         print(label.shape)
         sys.exit()
