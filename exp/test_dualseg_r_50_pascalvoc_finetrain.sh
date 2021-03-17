@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # train the net (suppose 8 gpus)
-python3 eval.py --data_set pascalvoc \
+python3 eval_pascalvoc.py --data_set pascalvoc \
 --data_dir "/home/anand17218/GALD-DGCNet/dataset/PASCALVOC2012/VOCdevkit/VOC2012" \
 --num_classes 21 \
 --input_size 384 \

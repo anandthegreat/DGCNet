@@ -80,8 +80,18 @@ def val():
         val_loss=0
         for vi, (vimg,vlbl) in enumerate(tqdm(val_loader)):
             vimg, vlbl = vimg.to(device), vlbl.to(device)
-            vout = model(vimg)
-            pred = vout[0].data.max(1)[1].cpu().numpy()
+
+            '''Custom code'''
+            # vimg = torch.from_numpy(vimg)
+            interp = nn.Upsample(size=(320,480), mode='bilinear', align_corners=True)
+            pred = model(vimg.cuda())
+            if isinstance(pred, list):
+                pred = pred[0]
+            pred = interp(pred).cpu().data[0].numpy().transpose(1, 2, 0)
+            pred = np.asarray(np.argmax(pred, axis=2), dtype=np.uint8)
+
+            # vout = model(vimg)
+            # pred = vout[0].data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
             conf_mat.update_step(gt.flatten(), pred.flatten())  
     
