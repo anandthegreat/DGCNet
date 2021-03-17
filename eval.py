@@ -251,6 +251,7 @@ def val():
         if index % 100 == 0:
             print('%d processd' % (index))
         image, label = batch
+        print(image.shape)
         with torch.no_grad():
             if args.whole:
                 output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
