@@ -78,9 +78,14 @@ def val():
     model.cuda()
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     conf_mat = custom_conf_matrix([i for i in range(0,21)],21)
+
+    dataset = VOCSegmentation(args.data_dir, image_set = 'train', 
+            scale = False, mean=IMG_MEAN, vars = IMG_VARS)
+    testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
+
     with torch.no_grad():
         val_loss=0
-        for vi, (vimg,vlbl) in enumerate(tqdm(val_loader)):
+        for vi, (vimg,vlbl) in enumerate(tqdm(testloader)):
             vimg, vlbl = vimg.to(device), vlbl.to(device)
 
             '''Custom code'''
@@ -95,9 +100,16 @@ def val():
             # vout = model(vimg)
             # pred = vout[0].data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
+            
             print(pred.shape)
             print(gt.shape)
+            ignore_index = gt != 255
+            # print(ignore_index)
+            # sys.exit()
+            gt = gt[ignore_index]
+            pred = pred[ignore_index]
             sys.exit()
+            
             conf_mat.update_step(gt.flatten(), pred.flatten())  
     
     score = conf_mat.compute_mean_iou() 
