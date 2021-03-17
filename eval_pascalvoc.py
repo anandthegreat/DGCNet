@@ -67,6 +67,8 @@ def val():
         VOCLoader(args.data_dir,portion="val",do_transform=True),
         batch_size=1,
     ) 
+    IMG_MEAN = np.array((0.485, 0.456, 0.406), dtype=np.float32)
+    IMG_VARS = np.array((0.229, 0.224, 0.225), dtype=np.float32)
     
     h, w = args.input_size, args.input_size
     input_size = (h, w)
