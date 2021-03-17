@@ -89,7 +89,7 @@ def val():
     with torch.no_grad():
         val_loss=0
         for vi, (vimg,vlbl) in enumerate(tqdm(testloader)):
-            vimg, vlbl = vimg.to(device), vlbl.to(device)
+            # vimg, vlbl = vimg.to(device), vlbl.to(device)
 
             '''Custom code'''
             # vimg = torch.from_numpy(vimg)
