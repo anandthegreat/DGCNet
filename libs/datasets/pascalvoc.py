@@ -166,7 +166,7 @@ class VOCSegmentation(data.Dataset):
         image, label = self.images[index], self.masks[index]
         image = np.asarray(image, np.float32)
         label = np.asarray(label, np.float32)
-        # image = image.transpose((2, 0, 1))
+        image = image.transpose((2, 0, 1))
         print(image.shape, label.shape)
         return image, voc_label_indices(label, self.colormap2label)
 
