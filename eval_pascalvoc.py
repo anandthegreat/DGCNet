@@ -106,9 +106,9 @@ def val():
             # gt = vlbl.data.cpu().numpy()
             gt = np.asarray(vlbl[0], dtype=np.int)
             
-            print(pred.shape)
-            print(gt.shape)
-            sys.exit()
+            # print(pred.shape)
+            # print(gt.shape)
+            # sys.exit()
             ignore_index = gt != 255
             # print(ignore_index)
             # sys.exit()
