@@ -108,12 +108,12 @@ def val():
             
             print(pred.shape)
             print(gt.shape)
+            sys.exit()
             ignore_index = gt != 255
             # print(ignore_index)
             # sys.exit()
             gt = gt[ignore_index]
             pred = pred[ignore_index]
-            sys.exit()
             
             conf_mat.update_step(gt.flatten(), pred.flatten())  
     
