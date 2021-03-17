@@ -49,6 +49,8 @@ def get_arguments():
     parser.add_argument("--input_size", type=int, default=INPUT_SIZE,
                         help="Comma-separated string with height and width of images.")
     parser.add_argument("--rgb", type=int, default=0)
+    parser.add_argument("--whole", type=bool, default=False,
+                        help="use whole input size.")
     return parser.parse_args()
 
 
