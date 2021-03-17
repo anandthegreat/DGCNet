@@ -95,6 +95,9 @@ def val():
             # vout = model(vimg)
             # pred = vout[0].data.max(1)[1].cpu().numpy()
             gt = vlbl.data.cpu().numpy()
+            print(pred.shape)
+            print(gt.shape)
+            sys.exit()
             conf_mat.update_step(gt.flatten(), pred.flatten())  
     
     score = conf_mat.compute_mean_iou() 
