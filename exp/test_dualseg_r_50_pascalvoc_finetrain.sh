@@ -7,4 +7,5 @@ python3 eval.py --data_set pascalvoc \
 --input_size 384 \
 --arch DualSeg_res50 \
 --rgb 1 \
+--whole True \
 --restore_from "./save_dualseg_r50/pascalvoc/DualSeg_res50_500epoch.pth" \
