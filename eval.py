@@ -177,7 +177,11 @@ def get_confusion_matrix(gt_label, pred_label, class_num):
     :param class_num: the nunber of class
     :return: the confusion matrix
     """
+    print(gt_label.shape)
+    print(pred_label.shape)
+    print(class_num)
     index = (gt_label * class_num + pred_label).astype('int32')
+    # Count number of occurrences of each value in array of non-negative ints
     label_count = np.bincount(index)
     confusion_matrix = np.zeros((class_num, class_num))
 
