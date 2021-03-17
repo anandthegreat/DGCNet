@@ -277,8 +277,8 @@ def val():
         else:
             seg_gt = np.asarray(label[0], dtype=np.int)
         ignore_index = seg_gt != 255
-        print(ignore_index)
-        sys.exit()
+        # print(ignore_index)
+        # sys.exit()
         seg_gt = seg_gt[ignore_index]
         seg_pred = seg_pred[ignore_index]
         # print(seg_pred.shape)
