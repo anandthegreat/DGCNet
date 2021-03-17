@@ -18,6 +18,7 @@ import torchvision.transforms as transforms
 import scipy.misc as m
 from PIL import Image
 from tqdm import tqdm
+from libs.datasets.pascalvoc import VOCSegmentation
 
 DATA_DIRECTORY = 'cityscapes'
 DATA_LIST_PATH = './data/cityscapes/val.txt'
