@@ -257,7 +257,8 @@ def val():
             else:
                 output = predict_sliding(model, image.numpy(), input_size, args.num_classes, True)
 
-        seg_pred = np.asarray(np.argmax(output, axis=3), dtype=np.uint8)
+        print(output.shape)
+        seg_pred = np.asarray(np.argmax(output, axis=2), dtype=np.uint8)
         output_im = PILImage.fromarray(seg_pred)
         output_im.putpalette(palette)
 
