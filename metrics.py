@@ -24,8 +24,8 @@ class custom_conf_matrix():
         print(union)
 
         indices = [8,9,10,11,12,13,14,15,19]
-        intersection = np.take(intersection, indices)
-        union = np.take(union, indices)
+        intersection = intersection[indices]
+        union = union[indices]
 
         print(intersection)
         print(union)
