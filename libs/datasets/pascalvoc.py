@@ -184,7 +184,7 @@ class VOCSegmentation(data.Dataset):
 
         h_off = random.randint(0, abs(img_h - self.crop_h))
         w_off = random.randint(0, abs(img_w - self.crop_w))
-        image = np.asarray(image_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
+        image = np.asarray(img_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
         label = np.asarray(label_pad[h_off : h_off+self.crop_h, w_off : w_off+self.crop_w], np.float32)
         image = image.transpose((2, 0, 1))
         print(image.shape, label.shape)
