@@ -252,13 +252,15 @@ def val():
             print('%d processd' % (index))
         image, label = batch
         print(image.shape)
+        print(label.shape)
+        sys.exit()
         with torch.no_grad():
             if args.whole:
                 output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
             else:
                 output = predict_sliding(model, image.numpy(), input_size, args.num_classes, True)
 
-        print(output.shape)
+        # print(output.shape)
         seg_pred = np.asarray(np.argmax(output, axis=2), dtype=np.uint8)
         output_im = PILImage.fromarray(seg_pred)
         output_im.putpalette(palette)
@@ -268,9 +270,9 @@ def val():
         # ignore_index = seg_gt != 255
         # seg_gt = seg_gt[ignore_index]
         # seg_pred = seg_pred[ignore_index]
-        print(seg_pred.shape)
-        print(seg_gt.shape)
-        sys.exit()
+        # print(seg_pred.shape)
+        # print(seg_gt.shape)
+        # sys.exit()
         confusion_matrix += get_confusion_matrix(seg_gt, seg_pred, args.num_classes)
 
     pos = confusion_matrix.sum(1)

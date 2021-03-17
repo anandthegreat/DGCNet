@@ -1,9 +1,9 @@
 import os
 import tarfile
 import collections
-import torch
-from torch.utils import data
-from torchvision import transforms
+# import torch
+# from torch.utils import data
+# from torchvision import transforms
 from PIL import Image
 import cv2
 import random
