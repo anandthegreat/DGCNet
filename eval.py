@@ -254,9 +254,9 @@ def val():
         if args.data_set == 'pascalvoc':
             image = image.numpy()
             label = label.numpy()
-        print(image.shape)
-        print(label.shape)
-        sys.exit()
+        # print(image.shape)
+        # print(label.shape)
+        # sys.exit()
         with torch.no_grad():
             if args.whole:
                 output = predict_multiscale(model, image, input_size, [1.0], args.num_classes, False)
@@ -273,9 +273,9 @@ def val():
         # ignore_index = seg_gt != 255
         # seg_gt = seg_gt[ignore_index]
         # seg_pred = seg_pred[ignore_index]
-        # print(seg_pred.shape)
-        # print(seg_gt.shape)
-        # sys.exit()
+        print(seg_pred.shape)
+        print(seg_gt.shape)
+        sys.exit()
         confusion_matrix += get_confusion_matrix(seg_gt, seg_pred, args.num_classes)
 
     pos = confusion_matrix.sum(1)
