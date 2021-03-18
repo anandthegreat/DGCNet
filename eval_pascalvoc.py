@@ -82,7 +82,7 @@ def val():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     conf_mat = custom_conf_matrix([i for i in range(0,21)],21)
 
-    dataset = VOCSegmentation(args.data_dir, image_set = 'train', 
+    dataset = VOCSegmentation(args.data_dir, image_set = 'val', 
             scale = False, mean=IMG_MEAN, vars = IMG_VARS)
     testloader = data.DataLoader(dataset, batch_size=1, shuffle=False, pin_memory=True)
 
