@@ -1,0 +1,8 @@
+2021-02-09 06:05:15,301 INFO    [train_distribute.py, 266] Training cost: 30264.894294seconds
+2021-02-09 06:05:15,302 INFO    [train_distribute.py, 267] Save final models
+2021-02-17 18:49:53,745 INFO    [train_distribute.py, 166] load pretrained models
+2021-02-17 18:50:18,181 INFO    [train_distribute.py, 166] load pretrained models
+2021-02-17 18:50:57,855 INFO    [train_distribute.py, 166] load pretrained models
+2021-02-17 18:51:41,412 INFO    [train_distribute.py, 166] load pretrained models
+2021-02-17 19:57:04,052 INFO    [train_distribute.py, 166] load pretrained models
+2021-02-20 10:57:46,896 INFO    [train_distribute.py, 175] load pretrained models
